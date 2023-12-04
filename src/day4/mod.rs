@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, collections::HashMap};
 
 pub fn day4_task1() -> u32 {
     let input = fs::read_to_string("src/day4/input.txt").expect("Could not read input file");
@@ -22,6 +22,35 @@ pub fn day4_task1() -> u32 {
     }
 
     sum
+}
+
+pub fn day4_task2() -> u32 {
+    let input = fs::read_to_string("src/day4/input.txt").expect("Could not read input file");
+    let lines = input.lines();
+    let mut scratch_cards: HashMap<u32, u32> = HashMap::from_iter((0..lines.clone().count()).map(|x| (x as u32, 1u32)));
+
+    let mut index: u32 = 0;
+    for line in lines {
+        let current_scratch_card_instances = &scratch_cards.get(&index).unwrap().clone();
+        index += 1;
+
+        let (winning_numbers, own_numbers) = split_into_winning_numbers_and_own_numbers(line);
+        let winning_numbers = get_numbers_from_string(winning_numbers);
+        let own_numbers = get_numbers_from_string(own_numbers);
+
+        let mut correct_numbers = 0;
+        for number in own_numbers {
+            if winning_numbers.contains(&number) {
+                correct_numbers += 1;
+            }
+        }
+        for number in 0..correct_numbers {
+            let insert_index = index + number;
+            scratch_cards.insert(insert_index, scratch_cards.get(&insert_index).unwrap() + current_scratch_card_instances);
+        }
+    }
+
+    scratch_cards.into_iter().map(|v| v.1).sum()
 }
 
 fn split_into_winning_numbers_and_own_numbers(numbers: &str) -> (&str, &str) {
