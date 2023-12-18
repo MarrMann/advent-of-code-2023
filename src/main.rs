@@ -28,5 +28,9 @@ fn main() {
         day4::day4_task2()
     );
     println!("Day 5, task 1: {}", day5::day5_task1());
-    println!("Day 6, task 1: {}", day6::task1());
+    println!(
+        "Day 6, task 1: {} | task 2: {}",
+        day6::task1(),
+        day6::task2()
+    );
 }
