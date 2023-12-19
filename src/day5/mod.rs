@@ -23,7 +23,6 @@ pub fn day5_task1() -> u64 {
     let lines = contents.lines();
 
     let mut seeds = get_seeds(lines.clone());
-    println!("Seeds: {:?}", seeds);
     let maps = get_all_maps(lines.collect::<Vec<&str>>()).expect("Could not parse maps");
     let mut changed_indicies: HashSet<i32> = HashSet::new();
 
@@ -31,7 +30,6 @@ pub fn day5_task1() -> u64 {
         let range = seeds.clone();
         let mut new_range: Vec<u64>;
         let mut final_range = range.clone();
-        println!("Range: {:?}", range);
         for submap in &map {
             new_range = transform_range_to_next(range.clone(), submap);
             for i in 0..range.len() {
@@ -42,7 +40,6 @@ pub fn day5_task1() -> u64 {
         }
         seeds = final_range;
         changed_indicies.clear();
-        println!();
     });
 
     *seeds.iter().min().unwrap()

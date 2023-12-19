@@ -20,10 +20,7 @@ pub fn task2() -> i64 {
     let lines = contents.lines().collect::<Vec<&str>>();
     let time = get_numbers_ignore_spaces(lines[0]);
     let distance = get_numbers_ignore_spaces(lines[1]);
-    println!("time: {}", time);
-    println!("distance: {}", distance);
     let winning_numbers = get_winning_numbers_u64(time, distance);
-    println!("winning_numbers: {:?}", winning_numbers);
 
     winning_numbers.1 as i64 - winning_numbers.0 as i64
 }
